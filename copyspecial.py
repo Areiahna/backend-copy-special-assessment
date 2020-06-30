@@ -36,17 +36,21 @@ def get_special_paths(dirname):
 
 
 def copy_to(path_list, dest_dir):
-    # getlist of file paths
-    file_paths = get_special_paths(path_list)
-    # copyfile(src, destination)
-    from shutil import copyfile
-    # copy list of files into given directory
-    return copyfile(file_paths, dest_dir)
+    # get list of file paths
+    for filename in path_list:
+        if not dest_dir:
+            os.mkdir(dest_dir)
+        from shutil import copy
+        copy(filename, dest_dir)
 
 
 def zip_to(path_list, dest_zip):
-    # your code here
-    return
+    cmd = ["zip", '-j', dest_zip]
+    cmd.extend(path_list)
+    print("Command I'm going to do:")
+    print(' '.join(cmd))
+    output = subprocess.check_output(cmd)
+    return output
 
 
 def main(args):
@@ -67,7 +71,12 @@ def main(args):
     # any required args, the general rule is to print a usage message and
     # exit(1).
     special_paths = get_special_paths(ns.from_dir)
-    print(special_paths)
+    if ns.todir:
+        copy_to(special_paths, ns.todir)
+    if ns.tozip:
+        zip_to(special_paths, ns.tozip)
+    else:
+        print('\n'.join(special_paths))
     # Your code here: Invoke (call) your functions
 
 
