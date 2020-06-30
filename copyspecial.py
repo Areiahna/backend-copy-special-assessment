@@ -35,8 +35,7 @@ def copy_to(path_list, dest_dir):
     for filename in path_list:
         if not dest_dir:
             os.mkdir(dest_dir)
-        from shutil import copy
-        copy(filename, dest_dir)
+            shutil.copy(filename, dest_dir)
 
 
 def zip_to(path_list, dest_zip):
