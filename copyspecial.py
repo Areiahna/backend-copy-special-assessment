@@ -19,16 +19,12 @@ import argparse
 
 def get_special_paths(dirname):
     """Given a dirname, returns a list of all its special files."""
-    # grabbing files in directory
+
     paths = os.listdir(dirname)
-    # identify "special" files "__w__" (regex)
     special_paths = []
     for filename in paths:
-        # regex pattern : 2 underscores + 1 or more word characters + 2 underscores
         match = re.search(r"__\w+__", filename)
         if match:
-            # os.path.abspath() gets the absolute path
-            # os.payj.join() joins directory & file path
             special_paths.append(os.path.abspath(
                 os.path.join(dirname, filename)))
 
@@ -36,7 +32,6 @@ def get_special_paths(dirname):
 
 
 def copy_to(path_list, dest_dir):
-    # get list of file paths
     for filename in path_list:
         if not dest_dir:
             os.mkdir(dest_dir)
@@ -77,7 +72,6 @@ def main(args):
         zip_to(special_paths, ns.tozip)
     else:
         print('\n'.join(special_paths))
-    # Your code here: Invoke (call) your functions
 
 
 if __name__ == "__main__":
