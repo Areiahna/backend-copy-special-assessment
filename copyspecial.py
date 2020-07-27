@@ -32,10 +32,13 @@ def get_special_paths(dirname):
 
 
 def copy_to(path_list, dest_dir):
+    """Given a directory copy the files to the directory,
+     creating the directory if necessary"""
+
+    if not os.path.exists(dest_dir):
+        os.makedirs(dest_dir)
     for filename in path_list:
-        if not dest_dir:
-            os.mkdir(dest_dir)
-            shutil.copy(filename, dest_dir)
+        shutil.copy(filename, dest_dir)
 
 
 def zip_to(path_list, dest_zip):
